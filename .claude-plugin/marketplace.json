@@ -11,11 +11,11 @@
     {
       "name": "prospector-de-sites",
       "source": "./prospector-de-sites",
-      "description": "Prospecção semi-automática: encontra negócios bem avaliados com sites ruins no Google Maps, redesenha as páginas com estética premium (com editor visual), publica na HostGator e cria a proposta por e-mail no Gmail. Leads salvos em planilha do Google Sheets.",
+      "description": "Prospecção semi-automática: encontra negócios bem avaliados com sites ruins no Google Maps, redesenha as páginas com estética premium (com editor visual), publica na HostGator ou Hostinger e cria a proposta por e-mail no Gmail. Leads salvos em planilha do Google Sheets.",
       "author": {
         "name": "Helio Arreche"
       },
-      "keywords": ["prospeccao", "landing-page", "redesign", "hostgator", "google-maps", "gmail"]
+      "keywords": ["prospeccao", "landing-page", "redesign", "hostgator", "hostinger", "google-maps", "gmail"]
     }
   ]
 }
