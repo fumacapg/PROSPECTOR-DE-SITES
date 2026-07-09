@@ -17,7 +17,7 @@ Prospecção semi-automática de clientes com sites ruins: acha, redesenha, publ
 - Conector do Gmail (rascunhos de proposta)
 - Conector do Google Drive (planilha de leads)
 - Pasta conectada no Cowork (armazena config, leads e sites)
-- Hospedagem HostGator (acesso ao cPanel) **ou** Hostinger (token de API do hPanel, usado pelo MCP `hostinger-hosting`)
+- Hospedagem HostGator (acesso ao cPanel) **ou** Hostinger (token de API do hPanel, usado pelo MCP `hostinger-hosting` — atualmente configurado com `npx.cmd`, então requer Windows; em Mac/Linux troque para `npx` em `.mcp.json`)
 
 ## Onde ficam os dados
 
