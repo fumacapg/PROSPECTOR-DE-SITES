@@ -22,7 +22,11 @@ Colete:
 - **Leads qualificados por busca**: padrão 10.
 - **Modo de envio da proposta**: padrão "criar rascunho no Gmail para revisão" (recomendado). Alternativa: enviar direto.
 
-## 4. Conexão com a HostGator
+## 4. Escolha e conexão da hospedagem
+
+Pergunte qual hospedagem o usuário quer usar: **HostGator** (FTP/cPanel) ou **Hostinger** (via MCP). Salve a escolha em `hospedagem.provedor` (`"hostgator"` ou `"hostinger"`).
+
+### Opção A — HostGator
 
 Pergunte se o usuário já contratou a hospedagem HostGator.
 
@@ -34,6 +38,13 @@ Pergunte se o usuário já contratou a hospedagem HostGator.
 
   **A senha NUNCA deve ser digitada no chat.** Salve o config com o campo `"senha": ""` e instrua o usuário a abrir `prospector-config.json` na pasta conectada e preencher a senha ele mesmo (avisando que ela fica em texto no computador dele). Só depois disso rode o teste de conexão. Nunca exiba, imprima ou registre a senha em nenhuma saída.
 
+### Opção B — Hostinger
+
+O servidor MCP `hostinger-hosting` é declarado no `.mcp.json` do plugin e carrega sozinho. Verifique se as ferramentas `hosting_*` estão disponíveis:
+
+- **Se não estiverem**: peça para o usuário gerar um token em hPanel → Perfil → Informações da conta → API → "Gerar token". **O token NUNCA deve ser digitado no chat.** Instrua o usuário a definir a variável de ambiente `HOSTINGER_API_TOKEN` no sistema operacional dele (fora do Claude Code) e reiniciar o Claude Code para o MCP carregar o valor. Salve o config parcial e encerre até isso ser feito.
+- **Se já estiverem disponíveis**: pergunte o domínio principal do site (ou avise que é possível gerar um subdomínio gratuito da Hostinger via `hosting_generateAFreeSubdomainV1` se ele ainda não tiver domínio próprio). Explique que cada cliente vira um subdomínio (ex.: `cliente.dominio.com`), já que a ferramenta de deploy da Hostinger não publica em subpasta. Salve em `hostinger.dominio`.
+
 ## 5. Salvar e testar
 
 Salve tudo em `prospector-config.json` na pasta conectada, neste formato:
@@ -43,11 +54,13 @@ Salve tudo em `prospector-config.json` na pasta conectada, neste formato:
   "assinatura": { "nome": "", "apresentacao": "", "whatsapp": "" },
   "prospeccao": { "nichos": ["nutricionistas", "psicologos", "advogados", "psiquiatras"], "cidade": "", "leadsPorBusca": 10 },
   "envio": { "modo": "rascunho" },
-  "hostgator": { "usuario": "", "dominio": "", "servidor": "", "senha": "", "pastaBase": "clientes" }
+  "hospedagem": { "provedor": "hostgator" },
+  "hostgator": { "usuario": "", "dominio": "", "servidor": "", "senha": "", "pastaBase": "clientes" },
+  "hostinger": { "dominio": "" }
 }
 ```
 
-Se os dados da HostGator foram informados, teste a conexão seguindo a skill `deploy-hostgator`: publique uma página `teste.html` simples e informe a URL pública ao usuário. Se o teste falhar, diagnostique (credenciais, servidor, método de upload) antes de concluir.
+Se os dados da hospedagem escolhida foram informados, teste a conexão seguindo a skill correspondente (`deploy-hostgator` ou `deploy-hostinger`): publique uma página de teste simples e informe a URL pública ao usuário. Se o teste falhar, diagnostique (credenciais/token, servidor, método de upload) antes de concluir.
 
 ## 6. Encerrar
 
