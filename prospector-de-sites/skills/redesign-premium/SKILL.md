@@ -14,7 +14,7 @@ Criar uma NOVA VERSÃO da página do cliente — não uma página nova. O client
 3. **Identidade preservada.** Manter logo, paleta de cores e fotos do cliente. Se a paleta original for fraca (ex.: cores puras saturadas), refinar os tons — nunca trocar a família de cores.
 4. **Mais completo que o original.** O site novo deve ser MUITO mais profissional e bem estruturado. Se o original tem poucas seções, CRIE as seções relevantes que faltam — desde que preenchidas só com informação real: prova social (nota + avaliações reais do Google), "como funciona o atendimento" (se dedutível do original), localização com mapa, horários (do perfil do Maps), FAQ com dúvidas respondíveis pelo conteúdo real. Seção que exigiria inventar fato = não criar.
 5. **Arquivo único.** `sites/[slug]/[slug].html` autocontido: CSS inline no `<head>`, sem build, sem dependências além de Google Fonts.
-6. **Mobile-first.** A página será aberta pelo cliente no celular. Testar mentalmente cada seção em 375px.
+6. **Responsividade TOTAL (inegociável).** A página será vista no celular do cliente E dentro da moldura da página-capa (~1000-1500px). Ela deve ser perfeita em QUALQUER largura: 360, 375, 768, 1024, 1280 e 1440px — sem rolagem horizontal, sem texto vazando, sem imagem esticada, sem seção quebrada em nenhum desses pontos. Usar grid/flex fluidos, `clamp()` para tipografia e breakpoints testados um a um. Página que quebra em alguma largura NÃO é entregue.
 7. **Editor sempre.** Todo redesign gera junto o `sites/[slug]/[slug]-editor.html` (camada de edição de `references/editor-visual.md`) — nunca entregar página sem a versão editável.
 8. **Comparador sempre.** Todo lote de redesign termina com `comparar.html` na raiz da pasta conectada, gerado a partir de `references/comparador-template.html` (substituir `__CLIENTES__` pelo array JSON; mesclar com clientes já existentes). A entrega padrão de cada cliente são 3 arquivos: página + editor + aba no comparador.
 
@@ -58,7 +58,7 @@ A página pronta deve parecer feita por um estúdio de design — teste honesto:
 - [ ] Zero texto placeholder / lorem ipsum
 - [ ] Todos os links e CTAs apontam para contato REAL do cliente
 - [ ] Número do WhatsApp no formato wa.me correto (55 + DDD + número)
-- [ ] Responsivo em 375px e 1440px
+- [ ] Responsivo verificado em 360, 375, 768, 1024, 1280 e 1440px — zero rolagem horizontal e zero quebra em TODAS
 - [ ] Título e meta description preenchidos com nome + especialidade + cidade
 - [ ] Comparação com o original: todo conteúdo importante do site antigo está presente
 - [ ] Logo e fotos ORIGINAIS do cliente presentes na página nova

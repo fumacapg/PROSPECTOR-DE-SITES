@@ -25,11 +25,13 @@ A ferramenta de deploy da Hostinger (`hosting_deployStaticWebsite`) só aceita u
 
 ## Passo 2 — Publicar
 
-Empacote a página do cliente (`sites/[slug]/[slug].html` renomeado para `index.html`, mais eventuais assets/imagens) em um arquivo compactado com os arquivos estáticos prontos (a ferramenta não aceita build step) e envie via `hosting_deployStaticWebsite`, apontando para o subdomínio do cliente criado no Passo 1 — nunca para o domínio principal (isso sobrescreveria o site raiz e afetaria todos os outros clientes).
+Empacote os arquivos do cliente prontos para servir — a página (`sites/[slug]/[slug].html` renomeado para `index.html`) e, se existir, a capa de proposta (`sites/[slug]/proposta.html`), mais eventuais assets/imagens — em um arquivo compactado (a ferramenta não aceita build step) e envie via `hosting_deployStaticWebsite`, apontando para o subdomínio do cliente criado no Passo 1 — nunca para o domínio principal (isso sobrescreveria o site raiz e afetaria todos os outros clientes).
 
-## Passo 3 — Verificação (sempre)
+## Passo 3 — Verificação (obrigatória, bloqueante)
 
-Após o deploy, buscar a URL pública resultante (`https://[slug].[dominio]/` ou o subdomínio gratuito gerado) e confirmar HTTP 200 + conteúdo correto (título do cliente presente). Deploys na Hostinger podem levar alguns minutos para propagar — se der 404 na primeira tentativa, aguardar um pouco e checar de novo antes de diagnosticar erro.
+1. Buscar a URL pública resultante (`https://[slug].[dominio]/` e, se aplicável, `.../proposta.html`) e confirmar HTTP 200 + conteúdo correto (título do cliente presente). Deploys na Hostinger podem levar alguns minutos para propagar — se der 404 na primeira tentativa, aguardar um pouco e checar de novo antes de diagnosticar erro.
+2. **HTTPS obrigatório**: o SSL de subdomínios Hostinger é emitido automaticamente, mas confirme que a URL carrega com cadeado válido antes de considerar publicado — link `http://` NUNCA vai para cliente.
+3. Atualize `leads.md` + dashboard com status `publicado` e a URL.
 
 ## Organização
 
