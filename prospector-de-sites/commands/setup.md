@@ -1,5 +1,5 @@
 ---
-description: Configura o plugin — assinatura, preferências e conexão com a HostGator (roda uma vez)
+description: Configura o plugin — assinatura, preferências e conexão com a hospedagem (HostGator ou Hostinger, roda uma vez)
 ---
 
 Configure o ambiente do Prospector de Sites. Siga esta ordem:
@@ -31,12 +31,12 @@ Pergunte qual hospedagem o usuário quer usar: **HostGator** (FTP/cPanel) ou **H
 Pergunte se o usuário já contratou a hospedagem HostGator.
 
 - **Se ainda não contratou**: explique brevemente que ele precisa de um plano que aceite múltiplos sites (plano M ou superior), que ao contratar ganha domínio grátis, e que depois de ativar deve voltar e rodar `/setup` de novo. Salve o config parcial e encerre.
-- **Se já contratou**: peça 3 informações do cPanel (elas aparecem na tela inicial do cPanel, coluna "General Information"):
-  1. **Usuário** do cPanel
-  2. **Domínio principal**
-  3. **Servidor** (nome do servidor ou IP, ex.: `br123.hostgator.com.br`)
+- **Se já contratou**: NÃO colete nenhum dado da HostGator pelo chat (nem usuário, nem servidor — e JAMAIS a senha). Tudo vai num lugar só, a aba Configurações do dashboard:
+  1. Instrua: abra o dashboard (`iniciar-dashboard.bat` na pasta conectada) → aba **Configurações** → seção **Conexão HostGator**.
+  2. Lá ele preenche os 4 campos + senha: usuário, domínio, servidor (os três aparecem na tela inicial do cPanel, coluna "General Information") e a senha do cPanel. Clica em "Salvar conexão" → tudo vai do navegador direto pro `prospector-config.json` no computador dele, sem passar pelo chat.
+  3. Peça para ele avisar quando salvar ("salvei") — aí você LÊ o config (verificando que os campos estão preenchidos, sem nunca exibir a senha) e roda o teste de conexão.
 
-  **A senha NUNCA deve ser digitada no chat.** Salve o config com o campo `"senha": ""` e instrua o usuário a abrir `prospector-config.json` na pasta conectada e preencher a senha ele mesmo (avisando que ela fica em texto no computador dele). Só depois disso rode o teste de conexão. Nunca exiba, imprima ou registre a senha em nenhuma saída.
+  Nunca exiba, imprima ou registre a senha em nenhuma saída. Se ele preferir, editar o `prospector-config.json` na mão também vale.
 
 ### Opção B — Hostinger
 
@@ -62,6 +62,14 @@ Salve tudo em `prospector-config.json` na pasta conectada, neste formato:
 
 Se os dados da hospedagem escolhida foram informados, teste a conexão seguindo a skill correspondente (`deploy-hostgator` ou `deploy-hostinger`): publique uma página de teste simples e informe a URL pública ao usuário. Se o teste falhar, diagnostique (credenciais/token, servidor, método de upload) antes de concluir.
 
-## 6. Encerrar
+## 6. Dashboard inicial
 
-Confirme o que foi salvo e explique o ciclo: `/prospectar` → `/redesenhar` → `/publicar` → `/proposta`, com `/editor` opcional para ajustes manuais.
+Siga a seção "Setup" da skill `dashboard-leads`: copie `dashboard-server.py` e `iniciar-dashboard.bat` para a raiz da pasta conectada, crie o banco `prospector.db` (schema da skill) e gere o `dashboard.html` do template. Explique ao usuário: duplo clique em `iniciar-dashboard.bat` abre o painel completo em http://localhost:8765 com edição/exclusão salvando no banco (requer Python no Windows; sem ele, o dashboard.html abre no modo leitura).
+
+## 7B. Entregar o manual e os scripts
+
+Copie da pasta do plugin para a pasta conectada (sobrescrevendo versões antigas): `manual.html` (manual do usuário) e os arquivos do publicador conforme o sistema do usuário (skill `deploy-hostgator`, references) — Windows: `publicar-agora.ps1/.bat`, `publicador-oculto.vbs`, `instalar-publicador.bat` · Mac: `publicar-agora.command`, `instalar-publicador.command` — mais o iniciador do dashboard certo (`iniciar-dashboard.bat` ou `.command`). Peça UM duplo clique no instalador do publicador (registra o publicador automático no Windows — única vez na vida; o teste de conexão do item 5 pode usar esse fluxo). Apresente o `manual.html` ao usuário com a frase: "Esse é o seu manual — guarda ele que responde 90% das dúvidas."
+
+## 7. Encerrar
+
+Confirme o que foi salvo e explique o ciclo (guiando SEMPRE o próximo passo ao fim de cada comando): `/prospectar` → `/redesenhar` → `/publicar` → `/proposta`, com `/editor` opcional para ajustes manuais e o `dashboard.html` como painel de controle de tudo.
