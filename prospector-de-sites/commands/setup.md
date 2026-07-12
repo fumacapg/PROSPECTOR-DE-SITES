@@ -10,7 +10,10 @@ Verifique se há uma pasta do usuário conectada. Se não houver, peça para con
 
 ## 2. Verificar config existente
 
-Procure `prospector-config.json` na pasta conectada. Se existir, mostre um resumo (sem exibir a senha) e pergunte o que o usuário quer atualizar. Se não existir, colete os dados abaixo.
+Procure `prospector-config.json` na pasta conectada.
+
+- **Se não existir**: colete os dados dos passos 3-5 abaixo (primeira vez).
+- **Se já existir**: mostre um resumo (sem exibir a senha) e pergunte o que o usuário quer atualizar nas preferências. Se a resposta for "nada, está tudo certo", **pule os passos 3-5** (preferências e conexão da hospedagem não mudam) — mas **NUNCA pule os passos 6 e 7B**. Esses dois só entregam/atualizam arquivos (dashboard, manual, scripts do publicador) e são seguros de rodar toda vez, inclusive depois de uma atualização do plugin em que só os arquivos mudaram e as preferências continuam as mesmas. "Config já preenchido" significa pular a reconfiguração das preferências, não pular a entrega dos arquivos.
 
 ## 3. Dados do usuário (perguntar via AskUserQuestion / formulário)
 
@@ -62,13 +65,13 @@ Salve tudo em `prospector-config.json` na pasta conectada, neste formato:
 
 Se os dados da hospedagem escolhida foram informados, teste a conexão seguindo a skill correspondente (`deploy-hostgator` ou `deploy-hostinger`): publique uma página de teste simples e informe a URL pública ao usuário. Se o teste falhar, diagnostique (credenciais/token, servidor, método de upload) antes de concluir.
 
-## 6. Dashboard inicial
+## 6. Dashboard inicial (SEMPRE rodar, mesmo se o config já existia)
 
-Siga a seção "Setup" da skill `dashboard-leads`: copie `dashboard-server.py` e `iniciar-dashboard.bat` para a raiz da pasta conectada, crie o banco `prospector.db` (schema da skill) e gere o `dashboard.html` do template. Explique ao usuário: duplo clique em `iniciar-dashboard.bat` abre o painel completo em http://localhost:8765 com edição/exclusão salvando no banco (requer Python no Windows; sem ele, o dashboard.html abre no modo leitura).
+Siga a seção "Setup" da skill `dashboard-leads`: copie `dashboard-server.py` e `iniciar-dashboard.bat` para a raiz da pasta conectada (sobrescrevendo versões antigas — é a versão mais recente do plugin, mesmo que o banco `prospector.db` já exista e não deva ser tocado), crie o banco `prospector.db` (schema da skill) se ainda não existir e gere/atualize o `dashboard.html` do template. Explique ao usuário: duplo clique em `iniciar-dashboard.bat` abre o painel completo em http://localhost:8765 com edição/exclusão salvando no banco (requer Python no Windows; sem ele, o dashboard.html abre no modo leitura).
 
-## 7B. Entregar o manual e os scripts
+## 7B. Entregar o manual e os scripts (SEMPRE rodar, mesmo se o config já existia)
 
-Copie da pasta do plugin para a pasta conectada (sobrescrevendo versões antigas): `manual.html` (manual do usuário) e os arquivos do publicador conforme o sistema do usuário (skill `deploy-hostgator`, references) — Windows: `publicar-agora.ps1/.bat`, `publicador-oculto.vbs`, `instalar-publicador.bat` · Mac: `publicar-agora.command`, `instalar-publicador.command` — mais o iniciador do dashboard certo (`iniciar-dashboard.bat` ou `.command`). Peça UM duplo clique no instalador do publicador (registra o publicador automático no Windows — única vez na vida; o teste de conexão do item 5 pode usar esse fluxo). Apresente o `manual.html` ao usuário com a frase: "Esse é o seu manual — guarda ele que responde 90% das dúvidas."
+Copie da pasta do plugin para a pasta conectada (sobrescrevendo versões antigas, sem tocar em `prospector-config.json`, `leads.md`, `prospector.db` ou `sites/`): `manual.html` (manual do usuário) e os arquivos do publicador conforme o sistema do usuário (skill `deploy-hostgator`, references) — Windows: `publicar-agora.ps1/.bat`, `publicador-oculto.vbs`, `instalar-publicador.bat` · Mac: `publicar-agora.command`, `instalar-publicador.command` — mais o iniciador do dashboard certo (`iniciar-dashboard.bat` ou `.command`). Isso vale tanto na primeira configuração quanto ao reabrir o `/setup` depois de uma atualização do plugin — é assim que o usuário recebe as versões novas desses arquivos. Peça UM duplo clique no instalador do publicador **apenas se ele ainda não tiver sido instalado antes** (registra o publicador automático — única vez na vida; o teste de conexão do item 5 pode usar esse fluxo). Apresente o `manual.html` ao usuário com a frase: "Esse é o seu manual — guarda ele que responde 90% das dúvidas."
 
 ## 7. Encerrar
 
